@@ -15,26 +15,83 @@ describe("VendingMachine", () => {
       });
     });
   });
-  describe("queryDispense", () => {
+
+  describe("queryCode", () => {
     beforeEach(() => {
       vendingMachine = new VendingMachine("../data.json");
     });
-    describe("should dispense one coke with the correct change", () => {
-      it("should return one less coke quantity", () => {
-        expect(vendingMachine.queryDispense("A1")).toEqual(4);
+    describe("get item by code", () => {
+      it("should return item associated to code", () => {
+        expect(vendingMachine.queryCode("A1")).toEqual("coke");
+      });
+    });
+    describe("should not return product if product does not exist", () => {
+      it("should return message", () => {
+        expect(vendingMachine.queryCode("A3")).toEqual(undefined);
       });
     });
   });
+
+  describe("queryCoins", () => {
+    beforeEach(() => {
+      vendingMachine = new VendingMachine("../data.json");
+    });
+    describe("query coins inventory", () => {
+      it("should return coins inventory", () => {
+        expect(vendingMachine.queryCoins()).toEqual(
+          "nickel: 10, dime: 15, quarter: 12, loonie: 5, twoonie: 5"
+        );
+      });
+    });
+
+    describe("queryDispense", () => {
+      beforeEach(() => {
+        vendingMachine = new VendingMachine("../data.json");
+      });
+      describe("should dispense one coke", () => {
+        it("should return one less coke quantity", () => {
+          expect(vendingMachine.queryDispense("A1")).toEqual(4);
+        });
+      });
+      // describe("returnChange", () => {
+      //   describe("should return change when product dispenses", () => {
+      //     it("should return correct change", () => {
+      //       expect(vendingMachine.customerInput("twoonie", "A1")).toEqual(65);
+      //     });
+      //   });
+      // });
+    });
+
+    describe("should not dispense if not enough coins inserted", () => {
+      beforeEach(() => {
+        vendingMachine = new VendingMachine("../data.json");
+      });
+      it("should return message", () => {
+        expect(vendingMachine.customerInput("nickel")).toEqual(
+          "insufficient funds"
+        );
+      });
+    });
+  });
+
   describe("queryRefill", () => {
     beforeEach(() => {
       vendingMachine = new VendingMachine("../data.json");
       vendingMachine.queryDispense("A2");
-      console.log(vendingMachine.queryStock());
     });
     describe("should refill stock", () => {
       it("should refill contents of vending machine", () => {
         expect(vendingMachine.queryRefill()).toEqual("items refilled");
-        console.log(vendingMachine.queryStock());
+      });
+    });
+  });
+  describe("coinsRefill", () => {
+    beforeEach(() => {
+      vendingMachine = new VendingMachine("../data.json");
+    });
+    describe("should refill coins", () => {
+      it("should refill coins of vending machine", () => {
+        expect(vendingMachine.coinsRefill()).toEqual("coins refilled");
       });
     });
   });

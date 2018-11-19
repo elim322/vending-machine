@@ -45,24 +45,34 @@
   },
   "balance": {
     "nickel": {
+      "name": "nickel",
       "quantity": 10,
-      "value": 5
+      "limit": 20,
+      "value": 0.5
     },
     "dime": {
+      "name": "dime",
       "quantity": 15,
-      "value": 10
+      "limit": 20,
+      "value": 0.1
     },
     "quarter": {
+      "name": "quarter",
       "quantity": 12,
-      "value": 25
+      "limit": 20,
+      "value": 0.25
     },
-    "lwoonie": {
+    "loonie": {
+      "name": "loonie",
       "quantity": 5,
-      "value": 100
+      "limit": 20,
+      "value": 1
     },
     "twoonie": {
+      "name": "twoonie",
       "quantity": 5,
-      "value": 200
+      "limit": 20,
+      "value": 2
     }
   }
 }
